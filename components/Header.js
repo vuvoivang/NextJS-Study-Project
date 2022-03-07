@@ -5,6 +5,7 @@ const Header = () => {
     return (
         <div className={headerStyles.title}>
             <h1><span>WebDev</span> News</h1>
+            {/* style jsx  */}
             <style jsx>
                 {`
                 .title{

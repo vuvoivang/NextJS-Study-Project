@@ -2,8 +2,8 @@ import { server } from '../../../config'
 import { useRouter } from "next/router"
 import Link from 'next/link'
 import Meta from '../../../components/Meta'
-const Article = ({ article }) => {
-    const router = useRouter()
+const Article = ({ article }) => { // article from getStaticProps
+    const router = useRouter() // can also access from useRouter().query.id
     const { id } = router.query
     return (
         <div>
@@ -24,8 +24,8 @@ export const getStaticPaths = async () => {
         fallback: false // if go sth doesn't exist, return 404 page
     }
 }
-export const getStaticProps = async (context) => {
-    const res = await fetch(`${server}/api/articles/${context.params.id}`)
+export const getStaticProps = async ({ params }) => { // get params from props of this component
+    const res = await fetch(`${server}/api/articles/${params.id}`)
     const article = await res.json()
     return {
         props: {
