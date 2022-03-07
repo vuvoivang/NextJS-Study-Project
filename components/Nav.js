@@ -206,7 +206,7 @@ const Nav = (props) => {
                     <Toolbar disableGutters>
                         <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                             <IconButton
-                                size="large"
+                                size="medium"
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
                                 aria-haspopup="true"
@@ -240,7 +240,7 @@ const Nav = (props) => {
                                         className="nav-page-link-mobile"
                                         exact
                                         href={page.route}
-                                        activeStyle={{ color: "#1e62f5" }}
+                                        activeStyle={{ color: "red" }}
                                     >
                                         <MenuItem>
                                             <span style={{ margin: "0 auto" }}>{page.name}</span>
@@ -257,7 +257,7 @@ const Nav = (props) => {
                             {pages.map((page, index) => (
                                 <Button key={index} className="nav-page-item">
                                     <Link
-                                        exact
+
                                         href={page.route}
                                         className="nav-link"
                                         activeClassName="nav-link-active"
@@ -272,7 +272,7 @@ const Nav = (props) => {
                             {typeof window !== 'undefined' ? localStorage.getItem("token") ? <Fragment>
                                 <IconButton
                                     className="notification"
-                                    size="large"
+                                    size="medium"
                                 // aria-label="show 17 new notifications"
                                 >
                                     <Badge badgeContent={0} color="error">
@@ -320,7 +320,7 @@ const Nav = (props) => {
                                 </Menu>
                             </Fragment> : <button onClick={() => {
                                 Router.push("/login");
-                            }} class="btn btn-login">Login</button> : null}
+                            }} className="btn btn-login">Login</button> : null}
                         </Box>
                     </Toolbar>
                 </Container>

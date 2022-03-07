@@ -1,0 +1,68 @@
+import { server } from '../../../config'
+import { useRouter } from "next/router"
+import Link from 'next/link'
+import Meta from '../../../components/Meta'
+
+
+// export const getServerSideProps = async (context) => {
+//     const res = await fetch(`${server}/api/products/${context.params.id}`)
+
+//     console.log(res)
+//     const product = await res.json()
+//     console.log(product)
+
+//     return {
+//         props: {
+//             product
+//         }
+//     }
+// }
+
+
+const Product = ({ product }) => { // product from getStaticProps
+    const router = useRouter() // can also access from useRouter().query.id
+    const { id } = router.query
+    return (
+        <> {product && <div style={{
+            borderRadius: "20px", overflow: "hidden",
+            display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",
+            height: "60vh",
+
+        }}>
+            {/* {JSON.stringify(product)} */}
+            <Meta title={product.name} description={product.detail} />
+            <h1>Name: {product.name}</h1>
+            <p>Description: {product.detail}</p>
+            <Link href='/products'>
+                <button className='btn btn-primary'>Go back</button>
+            </Link>
+        </div>}
+        </>
+    )
+}
+
+export const getStaticPaths = async () => {
+    const res = await fetch(`${server}/api/products`)
+    const products = await res.json()
+    console.log(products);
+    const ids = products.map(product => product.id) //arr of product id
+    const paths = ids.map(id => ({ params: { id: id.toString() } }))
+    return {
+        paths,
+        fallback: false // if go sth doesn't exist, return 404 page
+    }
+}
+export const getStaticProps = async ({ params }) => { // get params from props of this component
+    const res = await fetch(`${server}/api/products/${params.id}`)
+    const product = await res.json()
+    console.log(product)
+    return {
+        props: {
+            product
+        }
+    }
+}
+
+// or only 1 getServerSidesProps
+
+export default Product

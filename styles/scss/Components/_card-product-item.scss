@@ -1,0 +1,7 @@
+.card-product-item {
+  border: solid 2px rgba(168, 167, 167, 0.2);
+  border-radius: 20px;
+  .btn-detail {
+    @include button(white, #fc5421, white, #fa5320);
+  }
+}

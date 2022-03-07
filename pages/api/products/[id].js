@@ -1,13 +1,15 @@
-import { articles } from '../../../data'
+import { products } from '../../../data'
 
 export default function handler({ query: { id } }, res) {
-    const filtered = articles.filter((article) => article.id === id)
+
+    // debugger
+    const filtered = products.filter((product) => product.id == id)
 
     if (filtered.length > 0) {
         res.status(200).json(filtered[0]) // the first match item
     } else {
         res
             .status(404)
-            .json({ message: `Article with the id of ${id} is not found` })
+            .json({ message: `Product with the id of ${id} is not found` })
     }
 }
