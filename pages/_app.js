@@ -10,7 +10,8 @@ function MyApp({ Component, pageProps }) {
   // Component: đại diện cho 1 page match url
   // we can wrap a layout around
   // 1 page có thể có nhiều props
-
+  
+  // chỉ dùng ở v4, mục đích là để remove những css được render từ trước bởi nextjs
   useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
