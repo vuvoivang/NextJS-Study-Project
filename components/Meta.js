@@ -7,17 +7,17 @@ const Meta = ({ title, keywords, description }) => {
             <meta name='keywords' content={keywords} />
             <meta name='description' content={description} />
             <meta charSet='utf-8' />
-            <link rel='icon' href='/favicon.ico' />
+            <link rel='icon' />
             <title>{title}</title>
-            
+
         </Head>
     )
 }
 
 Meta.defaultProps = {
-    title: 'WebDev Newz',
-    keywords: 'web development, programming',
-    description: 'Get the latest news in web dev',
+    title: 'HoangVu Demo NextJS',
+    keywords: 'web development, nextjs, products, about',
+    description: 'My demo website with NextJS',
 }
 
 export default Meta

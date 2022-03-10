@@ -1,4 +1,4 @@
-import { products } from '../../../data'
+import { products } from '../../../data/product'
 
 export default function handler({ query: { id } }, res) {
 

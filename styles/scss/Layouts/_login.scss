@@ -1,5 +1,5 @@
 .login-form {
-  background: rgba(54, 54, 54);
+  background: rgb(230, 229, 229);
   background-size: contain;
   height: 680px;
   display: flex;
@@ -10,6 +10,7 @@
     width: 60%;
     height: 100%;
     position: relative;
+
     #form-login {
       width: 100%;
       position: absolute;
@@ -55,12 +56,15 @@
     }
     margin-top: 32px;
   }
+  .form-message {
+    color: #f33a58;
+    font-size: 16px;
+    display: inline-block;
+    margin-top: 5px;
+  }
   &__form-group.invalid {
     .form-control {
       border-color: #f33a58;
-    }
-    .form-message {
-      color: #f33a58;
     }
   }
   &__form-group {
@@ -144,7 +148,7 @@
     height: 60px;
   }
   &__form-message.form-message-success {
-    display: none;
+    // display: none;
     color: #1ea304;
     font-size: $fs-md;
     margin-top: 10px;

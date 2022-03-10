@@ -46,3 +46,10 @@ a:hover {
   text-decoration: none;
   color: inherit;
 }
+*:focus-visible {
+  outline-offset: 0;
+  outline: none !important;
+}
+*:focus {
+  outline: none !important;
+}
