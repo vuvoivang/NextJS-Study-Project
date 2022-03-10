@@ -18,26 +18,26 @@ const ProductItem = ({ product }) => {
     const classes = useStyles();
     return (
 
-        <div className='p-3'>
+        <div className='p-3 card-item'>
             <Card className='card-product-item p-3' sx={{ maxWidth: 400 }}>
                 <CardMedia
                     component="img"
                     alt="smart watch"
                     image={product.image}
-
+                    className="card-media"
                     height="300"
                     style={{ objectFit: "contain" }}
                 />
                 <div className='d-flex flex-column justify-content-center align-items-center'>
                     <CardContent className={classes.root}>
-                        <Typography gutterBottom variant="h4" align='center' style={{ color: "blue" }} component="div">
+                        <Typography gutterBottom variant="h4" align='center' style={{ color: "blue" }} component="div" className='name'>
                             {product.name}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {product.detail.slice(0, 95) + '...'}
+                        <Typography variant="body2" className='detail' color="text.secondary">
+                            {product.detail}
                         </Typography>
 
-                        <Typography className='mt-2' variant="h5" align='center' style={{ color: "red" }} component="div">
+                        <Typography className='mt-2 price' variant="h5" align='center' style={{ color: "red" }} component="div">
                             {product.price + ".000" + " VND"}
                         </Typography>
                     </CardContent>

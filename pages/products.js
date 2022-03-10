@@ -8,7 +8,7 @@ import Router from 'next/router';
 // import Router from 'next/router'
 // import { withSession } from 'next-session';
 
-// import AppContext from "./context/index";
+// import AppContext from "../context/index";
 // import { useContext } from "react";
 
 

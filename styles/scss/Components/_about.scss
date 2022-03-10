@@ -1,0 +1,15 @@
+@media only screen and (max-width: 660px) {
+  .about-me {
+    .p-about-me {
+      text-align: center;
+    }
+  }
+}
+@media only screen and (max-width: 400px) {
+  h1 {
+    font-size: 22px;
+  }
+  .p-about-me {
+    font-size: 15px;
+  }
+}

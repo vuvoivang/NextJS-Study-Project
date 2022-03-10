@@ -14,7 +14,7 @@ export const Footer = () => {
                     <a className="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/vhvu99" role="button"><i className="fab fa-github" /></a>
                 </section>
                 <section>
-                    <form action>
+                    <form>
                         <div className="row d-flex justify-content-center">
                             <div className="col-auto">
                                 <p className="pt-2">
