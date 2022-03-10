@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import React, { Fragment, useState, useEffect } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import React, { Fragment, useState, useEffect, useContext } from 'react';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 import Container from "@mui/material/Container";
 import Menu from "@mui/material/Menu";
 import Button from "@mui/material/Button";
@@ -12,7 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Avatar from "@mui/material/Avatar";
-import Router from 'next/router';
+import { useRouter } from "next/router";
 
 import {
     Badge,
@@ -27,12 +27,14 @@ import Modal from "@mui/material/Modal";
 import HelpOutlinedIcon from "@mui/icons-material/HelpOutlined";
 import avatar from "../public/images/VoHoangVu.jpg";
 import Box from "@mui/material/Box";
+import AppContext from "../pages/context/index";
 
 function ScrollTop(props) {
     const { children, window } = props;
     // Note that you normally won't need to set the window ref as useScrollTrigger
     // will default to window.
     // This is only being set here because the demo is in an iframe.
+
     const trigger = useScrollTrigger({
         target: window ? window() : undefined,
         disableHysteresis: true,
@@ -76,7 +78,7 @@ const style = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
-    background: "background.paper",
+    background: "white",
     border: "2px solid #000",
     boxShadow: 24,
     display: "flex",
@@ -85,7 +87,10 @@ const style = {
     alignItems: "center",
     p: 3,
 };
+
 const Nav = (props) => {
+    const IS_SERVER = typeof window === "undefined";
+    const context = useContext(AppContext);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -114,12 +119,17 @@ const Nav = (props) => {
     };
     const [openModalLogout, setOpenModalLogout] = useState(false);
     const handleCloseModalLogout = () => setOpenModalLogout(false);
+    const router = useRouter();
 
     const handleLogout = () => {
         handleCloseModalLogout();
-        localStorage.clear();
-        history.replace("/");
+
+        context.dispatch({
+            type: "LOGOUT"
+        })
+        // router.replace("/");
     };
+
     const ModalLogout = () => {
         return (
             <Modal
@@ -127,6 +137,7 @@ const Nav = (props) => {
                 onClose={handleCloseModalLogout}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+
             >
                 <Box sx={style}>
                     <HelpOutlinedIcon
@@ -183,19 +194,13 @@ const Nav = (props) => {
 
     ];
     const settings = ["Sign out"];
+    const avatar = "/public/images/avatar_default.png";
+
+    if (!IS_SERVER && localStorage.getItem("user")) {
+        const user = JSON.parse(localStorage.getItem("user"));
+        avatar = user.avatar;
+    }
     return (
-        // <nav className={navStyles.nav}>
-        //     <ul>
-        //         <li>
-        //             <Link href="/">Home</Link>
-        //         </li>
-        //         <li>
-        //             <Link href="/about">About</Link>
-        //         </li>
-        //     </ul>
-        // </nav>
-
-
         <Fragment>
             <AppBar
                 className="navbar"
@@ -204,6 +209,20 @@ const Nav = (props) => {
             >
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+                        >
+                            <Link href="/" className="logo">
+                                <img
+                                    src="/images/logo.png"
+                                    alt="My Logo"
+                                    style={{ borderRadius: "50%", cursor: "pointer" }}
+                                />
+                            </Link>
+                        </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                             <IconButton
                                 size="medium"
@@ -211,7 +230,7 @@ const Nav = (props) => {
                                 aria-controls="menu-appbar"
                                 aria-haspopup="true"
                                 onClick={handleOpenNavMenu}
-                                style={{ color: "black" }}
+                                style={{ color: "white" }}
                             >
                                 <MenuIcon />
                             </IconButton>
@@ -249,7 +268,21 @@ const Nav = (props) => {
                                 ))}
                             </Menu>
                         </Box>
-
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+                        >
+                            <Link href="/" className="logo">
+                                <img
+                                    src='/images/logo.png'
+                                    alt="My Logo"
+                                    width="40px"
+                                    style={{ borderRadius: "50%" }}
+                                />
+                            </Link>
+                        </Typography>
                         <Box
                             className="nav-page"
                             sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
@@ -319,7 +352,7 @@ const Nav = (props) => {
                                     ))}
                                 </Menu>
                             </Fragment> : <button onClick={() => {
-                                Router.push("/login");
+                                router.push("/login");
                             }} className="btn btn-login">Login</button> : null}
                         </Box>
                     </Toolbar>
@@ -328,7 +361,7 @@ const Nav = (props) => {
 
             <Toolbar style={{ minHeight: 0 }} id="back-to-top-anchor" />
             <ScrollTop {...props}>
-                <Fab color="primary" size="small" aria-label="scroll back to top">
+                <Fab color="primary" size="medium" aria-label="scroll back to top">
                     <KeyboardArrowUpIcon />
                 </Fab>
             </ScrollTop>

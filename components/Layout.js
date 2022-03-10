@@ -3,6 +3,7 @@ import Nav from './Nav'
 import Header from './Header'
 import styles from '../styles/Layout.module.css'
 import Meta from './Meta'
+import { Footer } from './Footer'
 // Dùng như HOC, có thể thêm header + footer.... cho những comp bọc trong Layout
 const Layout = ({ children }) => {
 
@@ -16,6 +17,7 @@ const Layout = ({ children }) => {
                     {children}
                 </main>
             </div>
+            <Footer />
         </>
     )
 }
