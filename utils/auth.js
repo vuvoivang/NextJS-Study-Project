@@ -4,7 +4,7 @@ import cookie from 'js-cookie'
 const IS_SERVER = typeof window === "undefined";
 export const login = ({ token }) => {
     cookie.set('token', token, { expires: 1 })
-    setTimeout(() => { Router.push('/products') }, 1500)
+    setTimeout(() => { Router.push('/products') }, 2000)
 }
 
 export const auth = ctx => {
@@ -24,10 +24,12 @@ export const auth = ctx => {
 }
 
 export const logout = () => {
-    cookie.remove('token')
-    // to support logging out from all windows
-    window.localStorage.setItem('logout', Date.now())
-    if (!IS_SERVER) localStorage.clear();
+    if (!IS_SERVER) {
+        localStorage.clear();
+        cookie.remove('token');
+        // to support logging out from all windows
+        window.localStorage.setItem('logout', Date.now())
+    }
     Router.push('/');
 }
 

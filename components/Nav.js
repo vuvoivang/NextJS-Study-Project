@@ -27,7 +27,7 @@ import Modal from "@mui/material/Modal";
 import HelpOutlinedIcon from "@mui/icons-material/HelpOutlined";
 import avatar from "../public/images/VoHoangVu.jpg";
 import Box from "@mui/material/Box";
-import AppContext from "../pages/context/index";
+import AppContext from "../context/index";
 
 function ScrollTop(props) {
     const { children, window } = props;

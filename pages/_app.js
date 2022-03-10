@@ -5,48 +5,17 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from "../theme/index"
 import { useEffect, useReducer } from 'react'
-import AppContext from "./context/index";
+import AppContext from "../context/index";
 import { users } from "../data/user"
-import { login, logout } from "../utils/auth";
+import { initialLoginState, loginReducer } from "../reducer/login";
 
 
-// reducer for managing login/logout
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "LOGIN":
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
-      localStorage.setItem("token", JSON.stringify(action.payload.token));
-      login({ token: action.payload.token });
-      return {
-        ...state,
-        isAuthenticated: true,
-        user: action.payload.user,
-        token: action.payload.token
-      };
-    case "LOGOUT":
-      localStorage.clear();
-      // delete cookies..
-      logout();
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: null
-      };
-    default:
-      return state;
-  }
-};
-const initialLoginState = {
-  isAuthenticated: false,
-  user: null,
-  token: null,
-};
 
 function MyApp({ Component, pageProps }) {
   // Component: đại diện cho 1 page match url
   // we can wrap a layout around
   // 1 page có thể có nhiều props
-  const [loginState, dispatch] = useReducer(reducer, initialLoginState);
+  const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
 
   // chỉ dùng ở v4, mục đích là để remove những css được render từ trước bởi nextjs
   useEffect(() => {

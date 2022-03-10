@@ -3,7 +3,7 @@ import Alert from "@mui/material/ALert";
 import Grid from "@mui/material/Grid";
 import { server } from "../config";
 import { useRouter } from "next/router";
-import AppContext from "./context/index";
+import AppContext from "../context/index";
 
 // import { useContext } from "react";
 const Login = () => {
@@ -30,7 +30,6 @@ const Login = () => {
     };
 
     const router = useRouter();
-    console.log(router);
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -41,6 +40,10 @@ const Login = () => {
 
         // Handle validation
         //.....
+        setFormErrors(validateAll(formValues));
+        if (!isEmptyObj(formErrors)) {
+            return;
+        }
         setIsSubmit(true);
 
         // handle login
@@ -74,7 +77,6 @@ const Login = () => {
 
 
     const handleValidation = (e) => {
-
         setFormErrors(validate(formValues, e.target.name));
     }
     const validate = (values, name) => {
@@ -100,6 +102,29 @@ const Login = () => {
         }
         return errors;
 
+    }
+    function isEmptyObj(obj) {
+        return Object.keys(obj).length === 0;
+    }
+    const validateAll = (values) => {
+        const errors = {};
+        // Validate email
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (regexEmail.test(values.email) === false) {
+            errors.email = "Email is not in correct format";
+        }
+        if (!values.email) {
+            errors.email = "Email is required";
+        }
+        // Validate password
+        if (values.password.length < 6) {
+            errors.password = "Password is required at least 6 characters";
+        }
+        if (!values.password) {
+            errors.password = "Password is required";
+        }
+        return errors;
     }
     return (
         <>
@@ -149,7 +174,7 @@ const Login = () => {
                             {isSubmit && isSuccess && <Alert variant="filled" severity="success">
                                 Login Successfully!
                             </Alert>}
-                            {isSubmit && !isSuccess && <Alert variant="filled" severity="failed">
+                            {isSubmit && !isSuccess && <Alert variant="filled" severity="error">
                                 Login Failed!
                             </Alert>}
                             <button type="submit" className="btn login-form__form-submit form-submit">

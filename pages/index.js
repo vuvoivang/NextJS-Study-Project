@@ -1,9 +1,10 @@
 import { useContext } from "react";
-import AppContext from "./context/index"
+import AppContext from "../context/index"
 import Meta from "../components/Meta";
 export default function Home() {
   // console.log(articles);
   const { users } = useContext(AppContext);
+  console.log("List users in context:");
   console.log(users);
   return (
     <div style={{
