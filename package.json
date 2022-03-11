@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "wclear": "if exist ./node_modules rmdir /Q /S node_modules && if exist package-lock.json del package-lock.json && if exist yarn.lock del yarn.lock"
   },
   "dependencies": {
     "@emotion/react": "^11.8.1",
@@ -20,6 +21,7 @@
     "next": "12.1.0",
     "next-cookies": "^2.0.3",
     "next-session": "^4.0.4",
+    "nextjs-progressbar": "0.0.14",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "sass": "^1.49.9"

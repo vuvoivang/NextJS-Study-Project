@@ -1,10 +1,12 @@
 import Router from 'next/router'
 import nextCookie from 'next-cookies'
-import cookie from 'js-cookie'
+import Cookies from 'js-cookie'
+
 const IS_SERVER = typeof window === "undefined";
 export const login = ({ token }) => {
-    cookie.set('token', token, { expires: 1 })
-    setTimeout(() => { Router.push('/products') }, 2000)
+    // console.log({ token, Cookies, nextCookie, test: window?.cookieStore })
+    if (!IS_SERVER) Cookies?.set('token', token, { expires: 1 })
+    setTimeout(() => { Router.push('/products') }, 1000)
 }
 
 export const auth = ctx => {
@@ -26,7 +28,7 @@ export const auth = ctx => {
 export const logout = () => {
     if (!IS_SERVER) {
         localStorage.clear();
-        cookie.remove('token');
+        Cookies.remove('token');
         // to support logging out from all windows
         window.localStorage.setItem('logout', Date.now())
     }

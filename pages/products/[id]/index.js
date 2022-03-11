@@ -2,6 +2,7 @@ import { server } from '../../../config'
 import { useRouter } from "next/router"
 import Link from 'next/link'
 import Meta from '../../../components/Meta'
+import CardMedia from '@mui/material/CardMedia';
 
 
 // export const getServerSideProps = async (context) => {
@@ -21,7 +22,7 @@ import Meta from '../../../components/Meta'
 
 const Product = ({ product }) => { // product from getStaticProps
     const router = useRouter() // can also access from useRouter().query.id
-    const { id } = router.query
+    // const { id } = router.query
     return (
         <> {product && <div style={{
             borderRadius: "20px", overflow: "hidden",
@@ -31,11 +32,23 @@ const Product = ({ product }) => { // product from getStaticProps
         }}>
             {/* {JSON.stringify(product)} */}
             <Meta title={product.name} description={product.detail} />
-            <h1>Name: {product.name}</h1>
-            <p>Description: {product.detail}</p>
-            <Link href='/products'>
-                <button className='btn btn-primary'>Go back</button>
-            </Link>
+            <div className='wrapper d-flex justify-content-around align-items-center'>
+                <div className='image'>
+                    <CardMedia
+                        component="img"
+                        alt="smart watch"
+                        image={product.image}
+                        className="card-media"
+                        height="300"
+                        style={{ objectFit: "contain" }}
+                    /></div>
+                <div className='info d-flex ps-5 flex-column justify-content-around align-items-start' style={{ maxWidth: 600 }}>
+                    <h1 style={{ color: "blue" }}>Name: {product.name}</h1>
+                    <p>Description: {product.detail}</p>
+                    <Link href='/products'>
+                        <button className='btn btn-primary'>Go back</button>
+                    </Link></div>
+            </div>
         </div>}
         </>
     )
