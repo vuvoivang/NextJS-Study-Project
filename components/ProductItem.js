@@ -42,7 +42,7 @@ const ProductItem = ({ product }) => {
                         </Typography>
                     </CardContent>
                     <CardActions >
-                        <Link href="/products/[id]" as={`/products/${product.id}`}>
+                        <Link href="/products/[id]" passHref as={`/products/${product.id}`}>
                             <Button className='btn btn-detail'>Detail</Button>
                         </Link>
                     </CardActions>

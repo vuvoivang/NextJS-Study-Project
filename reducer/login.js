@@ -1,5 +1,6 @@
 import { login, logout } from "../utils/auth";
 
+
 export const initialLoginState = {
     isAuthenticated: false,
     user: null,
@@ -12,7 +13,10 @@ export const loginReducer = (state, action) => {
         case "LOGIN":
             localStorage.setItem("user", JSON.stringify(action.payload.user));
             localStorage.setItem("token", JSON.stringify(action.payload.token));
+            // cookie.set('token', action.payload.token, { expires: 1 });
+            // console.log("test", typeof Cookies, Cookies);
             login({ token: action.payload.token });
+            // console.log(state);
             return {
                 ...state,
                 isAuthenticated: true,
@@ -20,9 +24,9 @@ export const loginReducer = (state, action) => {
                 token: action.payload.token
             };
         case "LOGOUT":
-
             // delete cookies..
             logout();
+            // console.log("state", state);
             return {
                 ...state,
                 isAuthenticated: false,

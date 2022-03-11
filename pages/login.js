@@ -1,19 +1,23 @@
 import React, { useState, useContext } from "react";
-import Alert from "@mui/material/ALert";
+import { Alert } from '@mui/material';
 import Grid from "@mui/material/Grid";
 import { server } from "../config";
 import { useRouter } from "next/router";
 import AppContext from "../context/index";
+import Link from "next/link"
+// import cookie from 'js-cookie'
 
 // import { useContext } from "react";
 const Login = () => {
     const context = useContext(AppContext);
-
+    const router = useRouter();
+    // console.log(router);
     // state để dispatch tới action Login
     const [formValues, setFormValues] = useState({
         email: "",
         password: "",
     });
+
     const [formErrors, setFormErrors] = useState({
     });
     const [isSubmit, setIsSubmit] = useState(false);
@@ -29,9 +33,10 @@ const Login = () => {
         });
     };
 
-    const router = useRouter();
     const handleSubmit = (event) => {
         event.preventDefault();
+        // console.log('test', cookie);
+        // console.log('test', cookie.get('token'));
 
         // if (formValues.email === "" || formValues.password === "") {
         //     setEmptyFieldNotice(true);
@@ -62,6 +67,11 @@ const Login = () => {
                         type: "LOGIN",
                         payload: data
                     })
+                    // cookie.set('token', action.payload.token, { expires: 1 });
+
+                    // console.log(cookie);
+
+
                 }
                 else {
                     alert(data.message);
@@ -137,7 +147,9 @@ const Login = () => {
                         </div>
 
                         <div className="login-form__form-field">
+                            {router.query.url === "products" ? <Alert variant="outlined" severity="error">Please login to view all products</Alert> : ""}
                             <div className="login-form__form-group form-group">
+
                                 <label htmlFor="email" className="login-form__form-label form-label"
                                 ><i className="fa fa-envelope icon"></i> Email *</label
                                 >
@@ -171,10 +183,10 @@ const Login = () => {
 
                                 <span className="login-form__form-message form-message">{formErrors.password}</span>
                             </div>
-                            {isSubmit && isSuccess && <Alert variant="filled" severity="success">
+                            {isSubmit && isSuccess && <Alert variant="outlined" severity="success">
                                 Login Successfully!
                             </Alert>}
-                            {isSubmit && !isSuccess && <Alert variant="filled" severity="error">
+                            {isSubmit && !isSuccess && <Alert variant="outlined" severity="error">
                                 Login Failed!
                             </Alert>}
                             <button type="submit" className="btn login-form__form-submit form-submit">
@@ -182,13 +194,14 @@ const Login = () => {
                             </button>
                             <Grid container>
                                 <Grid item xs>
-                                    <a
+                                    <Link
+                                        passHref
                                         href="/"
                                         variant="body2"
                                         style={{ textDecoration: "none", color: "blue" }}
                                     >
                                         Quên mật khẩu ?
-                                    </a>
+                                    </Link>
                                 </Grid>
                                 <Grid item>
                                     <a

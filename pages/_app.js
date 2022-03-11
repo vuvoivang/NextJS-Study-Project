@@ -8,7 +8,8 @@ import { useEffect, useReducer } from 'react'
 import AppContext from "../context/index";
 import { users } from "../data/user"
 import { initialLoginState, loginReducer } from "../reducer/login";
-
+import Script from 'next/script'
+import NextNProgress from "nextjs-progressbar";
 
 
 function MyApp({ Component, pageProps }) {
@@ -24,8 +25,9 @@ function MyApp({ Component, pageProps }) {
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
-  }, []);
 
+  }, []);
+  // console.log("test", typeof Cookies, Cookies);
 
 
   return (
@@ -34,6 +36,11 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
+          <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossOrigin="anonymous" />
+          <Script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossOrigin="anonymous" />
+          <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossOrigin="anonymous" />
+          {/* Scripts excuted by next */}
+          <NextNProgress />
           <Component {...pageProps} />
         </ThemeProvider>
       </Layout>

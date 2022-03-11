@@ -25,7 +25,6 @@ import PropTypes from "prop-types";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Modal from "@mui/material/Modal";
 import HelpOutlinedIcon from "@mui/icons-material/HelpOutlined";
-import avatar from "../public/images/VoHoangVu.jpg";
 import Box from "@mui/material/Box";
 import AppContext from "../context/index";
 
@@ -91,10 +90,22 @@ const style = {
 const Nav = (props) => {
     const IS_SERVER = typeof window === "undefined";
     const context = useContext(AppContext);
-
+    const [isLoggedin, setIsLoggedin] = useState(false);
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+        // console.log(props.isAuth)
+        if (props.isAuth) {
+            setIsLoggedin(true);
+        }
+        else {
+            setIsLoggedin(false);
+        }
+    }, [props.isAuth]);
+
+
+
+
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const handleOpenNavMenu = (event) => {
@@ -123,7 +134,7 @@ const Nav = (props) => {
 
     const handleLogout = () => {
         handleCloseModalLogout();
-
+        // props.setIsAuth(false);
         context.dispatch({
             type: "LOGOUT"
         })
@@ -194,7 +205,7 @@ const Nav = (props) => {
 
     ];
     const settings = ["Sign out"];
-    const avatar = "/public/images/avatar_default.png";
+    const avatar = "/images/avatar_default.png";
 
     if (!IS_SERVER && localStorage.getItem("user")) {
         const user = JSON.parse(localStorage.getItem("user"));
@@ -215,7 +226,7 @@ const Nav = (props) => {
                             component="div"
                             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
                         >
-                            <Link href="/" className="logo">
+                            <Link passHref href="/" className="logo">
                                 <img
                                     src="/images/logo.png"
                                     alt="My Logo"
@@ -254,7 +265,7 @@ const Nav = (props) => {
                                 }}
                             >
                                 {pages.map((page, index) => (
-                                    <Link
+                                    <Link passHref
                                         key={index}
                                         className="nav-page-link-mobile"
                                         exact
@@ -274,7 +285,7 @@ const Nav = (props) => {
                             component="div"
                             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
                         >
-                            <Link href="/" className="logo">
+                            <Link href="/" passHref className="logo">
                                 <img
                                     src='/images/logo.png'
                                     alt="My Logo"
@@ -302,7 +313,7 @@ const Nav = (props) => {
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }}>
-                            {typeof window !== 'undefined' ? localStorage.getItem("token") ? <Fragment>
+                            {isLoggedin ? <>
                                 <IconButton
                                     className="notification"
                                     size="medium"
@@ -351,9 +362,10 @@ const Nav = (props) => {
                                         </MenuItem>
                                     ))}
                                 </Menu>
-                            </Fragment> : <button onClick={() => {
-                                router.push("/login");
-                            }} className="btn btn-login">Login</button> : null}
+                            </> :
+                                <button onClick={() => {
+                                    router.push("/login");
+                                }} className="btn btn-login">Login</button>}
                         </Box>
                     </Toolbar>
                 </Container>
