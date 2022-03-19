@@ -17,7 +17,9 @@ export const getServerSideProps = async (context) => {
         }
     }
 }
+const downloadFile = (id) => {
 
+}
 
 const Product = ({ product }) => { // product from getStaticProps
     // const router = useRouter() // can also access from useRouter().query.id
@@ -53,9 +55,15 @@ const Product = ({ product }) => { // product from getStaticProps
                 <div className='info d-flex ps-5 flex-column justify-content-around align-items-start' style={{ maxWidth: 600 }}>
                     <h1 style={{ color: "blue" }}>Name: {product.name}</h1>
                     <p>Description: {product.detail}</p>
-                    <Link href='/products'>
-                        <button className='btn btn-primary'>Go back</button>
-                    </Link></div>
+                    <div className='btn-group'>
+                        <Link href='/products'>
+                            <button className='btn btn-primary me-3'>Go back</button>
+                        </Link>
+                        <button onClick={downloadFile(product.id)} className='btn btn-danger'>Down description file</button>
+                    </div>
+
+                </div>
+
             </div>
         </div>}
         </>
