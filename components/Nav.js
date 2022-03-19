@@ -90,7 +90,8 @@ const style = {
 const Nav = (props) => {
     const IS_SERVER = typeof window === "undefined";
     const context = useContext(AppContext);
-    const [isLoggedin, setIsLoggedin] = useState(false);
+    console.log("appContext in Nav", context);
+    const [isLoggedin, setIsLoggedin] = useState(null);
     useEffect(() => {
         window.scrollTo(0, 0);
         // console.log(props.isAuth)
@@ -211,6 +212,7 @@ const Nav = (props) => {
         const user = JSON.parse(localStorage.getItem("user"));
         avatar = user.avatar;
     }
+    console.log(isLoggedin);
     return (
         <Fragment>
             <AppBar
