@@ -1,7 +1,5 @@
 // Uppercase for component name
 import Nav from './Nav'
-import Header from './Header'
-import styles from '../styles/Layout.module.css'
 import Meta from './Meta'
 import { Footer } from './Footer'
 import cookie from "js-cookie";
@@ -19,11 +17,11 @@ const Layout = ({ children }) => {
         my_cookie = cookie.get();
         // console.log("my_cookie", my_cookie)
         if (my_cookie?.token?.length > 0) {
-            console.log("a");
+            // console.log("a");
             setIsAuth(true);
         }
         else {
-            console.log("b");
+            // console.log("b");
             setIsAuth(false);
         }
     }, [context.loginState.isAuthenticated]);

@@ -5,24 +5,32 @@ import Meta from '../../../components/Meta'
 import CardMedia from '@mui/material/CardMedia';
 
 
-// export const getServerSideProps = async (context) => {
-//     const res = await fetch(`${server}/api/products/${context.params.id}`)
+export const getServerSideProps = async (context) => {
+    const res = await fetch(`${server}/api/products/${context.params.id}`)
 
-//     console.log(res)
-//     const product = await res.json()
-//     console.log(product)
-
-//     return {
-//         props: {
-//             product
-//         }
-//     }
-// }
+    // console.log(res)
+    const product = await res.json()
+    // console.log(product)
+    return {
+        props: {
+            product
+        }
+    }
+}
 
 
 const Product = ({ product }) => { // product from getStaticProps
-    const router = useRouter() // can also access from useRouter().query.id
+    // const router = useRouter() // can also access from useRouter().query.id
     // const { id } = router.query
+    console.log(product);
+    if (product.status === "NOT_FOUND") {
+        return (
+            <div className='d-flex p-5 flex-column justify-content-center align-items-center'>
+                <h1>404 NOT FOUND</h1>
+                <p>{product.message}</p>
+            </div>
+        )
+    }
     return (
         <> {product && <div style={{
             borderRadius: "20px", overflow: "hidden",
@@ -54,27 +62,29 @@ const Product = ({ product }) => { // product from getStaticProps
     )
 }
 
-export const getStaticPaths = async () => {
-    const res = await fetch(`${server}/api/products`)
-    const products = await res.json()
-    console.log(products);
-    const ids = products.map(product => product.id) //arr of product id
-    const paths = ids.map(id => ({ params: { id: id.toString() } }))
-    return {
-        paths,
-        fallback: false // if go sth doesn't exist, return 404 page
-    }
-}
-export const getStaticProps = async ({ params }) => { // get params from props of this component
-    const res = await fetch(`${server}/api/products/${params.id}`)
-    const product = await res.json()
-    console.log(product)
-    return {
-        props: {
-            product
-        }
-    }
-}
+// export const getStaticPaths = async () => {
+//     const res = await fetch(`${server}/api/products`)
+//     const products = await res.json()
+//     // console.log(products);
+//     const ids = products.map(product => product.id) //arr of product id
+//     const paths = ids.map(id => ({ params: { id: id.toString() } }))
+//     return {
+//         paths,
+//         fallback: false // if go sth doesn't exist, return 404 page
+//     }
+// }
+// export const getStaticProps = async ({ params }) => { // get params from props of this component
+//     const res = await fetch(`${server}/api/products/${params.id}`)
+
+//     const product = await res.json()
+//     console.log(product)
+
+//     return {
+//         props: {
+//             product
+//         }
+//     }
+// }
 
 // or only 1 getServerSidesProps
 
