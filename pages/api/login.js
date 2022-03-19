@@ -15,11 +15,11 @@ const jwt = require('jsonwebtoken');
 
 const generateToken = (payload) => {
     const { id, email, password } = payload;
-    console.log("ENV", process.env.private_key);
-    // const accessToken = jwt.sign({ id, email },
-    //     process.env.private_key
-    // );
-    const accessToken = email + password + Math.floor(Math.random() * 10);
+    // console.log("ENV", process.env.private_key);
+    const accessToken = jwt.sign({ id, email },
+        process.env.private_key
+    );
+    // const accessToken = email + password + Math.floor(Math.random() * 10);
     return accessToken;
 
 };
