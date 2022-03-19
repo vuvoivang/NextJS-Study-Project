@@ -1,9 +1,7 @@
 import { server } from '../../../config'
-import { useRouter } from "next/router"
 import Link from 'next/link'
 import Meta from '../../../components/Meta'
 import CardMedia from '@mui/material/CardMedia';
-
 
 export const getServerSideProps = async (context) => {
     const res = await fetch(`${server}/api/products/${context.params.id}`)
@@ -17,9 +15,7 @@ export const getServerSideProps = async (context) => {
         }
     }
 }
-const downloadFile = (id) => {
 
-}
 
 const Product = ({ product }) => { // product from getStaticProps
     // const router = useRouter() // can also access from useRouter().query.id
@@ -59,7 +55,10 @@ const Product = ({ product }) => { // product from getStaticProps
                         <Link href='/products'>
                             <button className='btn btn-primary me-3'>Go back</button>
                         </Link>
-                        <button onClick={downloadFile(product.id)} className='btn btn-danger'>Down description file</button>
+                        <button className='btn btn-danger'>
+                            <a href={Number(product.id) % 2 === 0 ? "/files/EvenProduct.xlsx" : "/files/OddProduct.xlsx"}
+                                target="_self">Down description file</a>
+                        </button>
                     </div>
 
                 </div>
