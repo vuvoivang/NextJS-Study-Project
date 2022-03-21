@@ -114,6 +114,7 @@ const Login = () => {
 
     }
     function isEmptyObj(obj) {
+        // return string of (names, methods)
         return Object.keys(obj).length === 0;
     }
     const validateAll = (values) => {
@@ -147,6 +148,7 @@ const Login = () => {
                         </div>
 
                         <div className="login-form__form-field">
+                            {/* if from products without loggedIn  */}
                             {router.query.url === "products" ? <Alert variant="outlined" severity="error">Please login to view all products</Alert> : ""}
                             <div className="login-form__form-group form-group">
 

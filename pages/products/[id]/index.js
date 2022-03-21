@@ -20,7 +20,7 @@ export const getServerSideProps = async (context) => {
 const Product = ({ product }) => { // product from getStaticProps
     // const router = useRouter() // can also access from useRouter().query.id
     // const { id } = router.query
-    console.log(product);
+    // console.log(product);
     if (product.status === "NOT_FOUND") {
         return (
             <div className='d-flex p-5 flex-column justify-content-center align-items-center'>

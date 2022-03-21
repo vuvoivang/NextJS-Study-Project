@@ -3,10 +3,14 @@ import nextCookie from 'next-cookies'
 import Cookies from 'js-cookie'
 
 const IS_SERVER = typeof window === "undefined";
-export const login = ({ token }) => {
+export const login = ({ token, user }) => {
     // console.log({ token, Cookies, nextCookie, test: window?.cookieStore })
-    if (!IS_SERVER) Cookies?.set('token', token, { expires: 1 })
-    setTimeout(() => { Router.push('/products') }, 1000)
+    if (!IS_SERVER) {
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("token", JSON.stringify(token));
+        Cookies?.set('token', token, { expires: 1 })
+    }
+    setTimeout(() => { Router.push('/products') }, 500)
 }
 
 export const auth = ctx => {

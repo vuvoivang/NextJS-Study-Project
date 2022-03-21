@@ -10,6 +10,6 @@ export default function handler({ query: { id } }, res) {
     } else {
         res
             .status(404)
-            .json({ status: 404, message: `Product with the id of ${id} is not found` })
+            .json({ status: "NOT_FOUND", message: `Product with the id of ${id} is not found` })
     }
 }

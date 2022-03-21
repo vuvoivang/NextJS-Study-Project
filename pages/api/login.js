@@ -14,7 +14,7 @@ const jwt = require('jsonwebtoken');
 // };
 
 const generateToken = (payload) => {
-    const { id, email, password } = payload;
+    const { id, email } = payload;
     // console.log("ENV", process.env.private_key);
     const accessToken = jwt.sign({ id, email },
         process.env.private_key

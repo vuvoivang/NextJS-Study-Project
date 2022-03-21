@@ -11,11 +11,10 @@ export const initialLoginState = {
 export const loginReducer = (state, action) => {
     switch (action.type) {
         case "LOGIN":
-            localStorage.setItem("user", JSON.stringify(action.payload.user));
-            localStorage.setItem("token", JSON.stringify(action.payload.token));
+
             // cookie.set('token', action.payload.token, { expires: 1 });
             // console.log("test", typeof Cookies, Cookies);
-            login({ token: action.payload.token });
+            login({ token: action.payload.token, user: action.payload.user });
             // console.log(state);
             return {
                 ...state,
