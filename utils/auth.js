@@ -10,7 +10,7 @@ export const login = ({ token, user }) => {
         localStorage.setItem("token", JSON.stringify(token));
         Cookies?.set('token', token, { expires: 1 })
     }
-    setTimeout(() => { Router.push('/products') }, 500)
+    setTimeout(() => { Router.push('/products') }, 1000)
 }
 
 export const auth = ctx => {
