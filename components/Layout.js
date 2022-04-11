@@ -25,6 +25,7 @@ const Layout = ({ children }) => {
             setIsAuth(false);
         }
     }, [context.loginState.isAuthenticated]);
+    
     return (
         <>
             <Meta />

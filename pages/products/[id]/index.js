@@ -80,6 +80,7 @@ const Product = ({ product }) => { // product from getStaticProps
 //         fallback: false // if go sth doesn't exist, return 404 page
 //     }
 // }
+
 // export const getStaticProps = async ({ params }) => { // get params from props of this component
 //     const res = await fetch(`${server}/api/products/${params.id}`)
 
